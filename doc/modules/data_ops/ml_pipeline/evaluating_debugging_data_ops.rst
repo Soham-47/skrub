@@ -30,3 +30,21 @@ they can be saved to a different location with the ``ouptut_dir`` parameter.
 Note that the default path can be altered with the
 ``SKRUB_DATA_DIR`` environment variable. See :ref:`user_guide_configuration_parameters`
 for more details.
+
+Generating reports from a SkrubLearner
+======================================
+
+When working with a :class:`SkrubLearner`, it is also possible to generate a report
+directly from the learner using :meth:`SkrubLearner.report`. This method is useful
+to inspect the execution of a specific method (e.g. ``fit``, ``predict``) and
+debug the pipeline.
+
+.. code-block:: python
+
+    learner = SkrubLearner(data_op)
+    report = learner.report(environment={"X": X_train, "y": y_train}, mode="fit")
+    print(report["report_path"])
+
+The report will contain the same information as :meth:`.skb.full_report() <DataOp.skb.full_report>`,
+but it will also include the result of the execution (e.g. the fitted learner) and
+any error that might have occurred.
